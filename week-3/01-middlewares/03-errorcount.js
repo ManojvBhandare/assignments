@@ -23,4 +23,15 @@ app.get('/errorCount', function(req, res) {
   res.status(200).json({ errorCount });
 });
 
+app.use((err, req, res, next) => {
+  // Increment the error count
+  errorCount += 1;
+
+  // Log the error (optional)
+  console.error(err.stack);
+
+  // Send a 404 response to the end user
+  res.status(404).send('Not Found');
+});
+
 module.exports = app;
